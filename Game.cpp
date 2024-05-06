@@ -91,8 +91,10 @@ bool Game::Update()
 	if (GetAsyncKeyState(VK_SPACE) & 0x1)
 		ball.moving = !ball.moving;
 
-	if (GetAsyncKeyState('R') & 0x1)
+	if (GetAsyncKeyState('R') & 0x1) {
+		bricks.clear(); // clears the bricks vector before continuing -> fixes the functionality error that was happening after resetting
 		Reset();
+	}
 
 	ball.Update();
 	CheckCollision();
@@ -100,7 +102,7 @@ bool Game::Update()
 }
 
 //  All rendering should be done between the locks in this function
-void Game::Render() const
+void Game::Render()const
 {
 	Console::Lock(true);
 	Console::Clear();
