@@ -9,4 +9,5 @@ public:
 	int height = 2;
 	void Draw() const override;
 	bool Contains(int x, int y);
+	int count = 0; //added to implement collision response with any colour
 };
