@@ -20,12 +20,52 @@ void Game::Reset()
 	ResetBall();
 
 	// TODO #2 - Add this brick and 4 more bricks to the vector
-	brick.width = 10;
-	brick.height = 2;
-	brick.x_position = 0;
-	brick.y_position = 5;
-	brick.doubleThick = true;
-	brick.color = ConsoleColor::DarkGreen;
+	int pos = static_cast<int>(Console::WindowWidth());
+	pos = pos / 5;
+	//brick1
+	brick1.width = 10;
+	brick1.height = 2;
+	brick1.x_position = 2;
+	brick1.y_position = 5;
+	brick1.doubleThick = true;
+	brick1.color = ConsoleColor::Red;
+	bricks.push_back(brick1);
+
+	//brick2
+	brick2.width = 10;
+	brick2.height = 2;
+	brick2.x_position = pos+2;
+	brick2.y_position = 5;
+	brick2.doubleThick = true;
+	brick2.color = ConsoleColor::Yellow;
+	bricks.push_back(brick2);
+
+	//brick3
+	brick3.width = 10;
+	brick3.height = 2;
+	brick3.x_position = pos*2+2;
+	brick3.y_position = 5;
+	brick3.doubleThick = true;
+	brick3.color = ConsoleColor::Green;
+	bricks.push_back(brick3);
+
+	//brick4
+	brick4.width = 10;
+	brick4.height = 2;
+	brick4.x_position = pos*3+2;
+	brick4.y_position = 5;
+	brick4.doubleThick = true;
+	brick4.color = ConsoleColor::Blue;
+	bricks.push_back(brick4);
+	
+	//brick5
+	brick5.width = 10;
+	brick5.height = 2;
+	brick5.x_position = pos*4+2;
+	brick5.y_position = 5;
+	brick5.doubleThick = true;
+	brick5.color = ConsoleColor::Magenta;
+	bricks.push_back(brick5);
 }
 
 void Game::ResetBall()
@@ -69,7 +109,9 @@ void Game::Render() const
 	ball.Draw();
 
 	// TODO #3 - Update render to render all bricks
-	brick.Draw();
+	for (int i = 0; i < bricks.size(); i++) {
+		bricks[i].Draw();
+	}
 
 	Console::Lock(false);
 }
@@ -77,13 +119,15 @@ void Game::Render() const
 void Game::CheckCollision()
 {
 	// TODO #4 - Update collision to check all bricks
-	if (brick.Contains(ball.x_position + ball.x_velocity, ball.y_position + ball.y_velocity))
-	{
-		brick.color = ConsoleColor(brick.color - 1);
-		ball.y_velocity *= -1;
+	for (int i = 0; i < bricks.size(); i++) {
+		if (bricks[i].Contains(ball.x_position + ball.x_velocity, ball.y_position + ball.y_velocity))
+		{
+			bricks[i].color = ConsoleColor(bricks[i].color - 1);
+			ball.y_velocity *= -1;
 
-		// TODO #5 - If the ball hits the same brick 3 times (color == black), remove it from the vector
+			// TODO #5 - If the ball hits the same brick 3 times (color == black), remove it from the vector
 
+		}
 	}
 
 	// TODO #6 - If no bricks remain, pause ball and display victory text with R to reset
