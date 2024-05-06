@@ -113,7 +113,12 @@ void Game::Render() const
 		bricks[i].Draw();
 	}
 	if (bricks.size() == 0) {
+		Console::SetCursorPosition(30, paddle.y_position - 10);
 		std::cout << "!_~. YOU WIN .~_!";
+	}
+	if (ball.y_position == Console::WindowHeight()) {
+		Console::SetCursorPosition(30, paddle.y_position - 10);
+		std::cout << "T_T YOU LOSE T_T";
 	}
 	Console::Lock(false);
 }
@@ -150,4 +155,10 @@ void Game::CheckCollision()
 	}
 
 	// TODO #7 - If ball touches bottom of window, pause ball and display defeat text with R to reset
+	if (ball.y_position == Console::WindowHeight()) {
+		ball.moving = false;
+		Render();
+		if (GetAsyncKeyState('R') & 0x1)
+			Reset();
+	}
 }
