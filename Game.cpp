@@ -112,7 +112,9 @@ void Game::Render() const
 	for (int i = 0; i < bricks.size(); i++) {
 		bricks[i].Draw();
 	}
-
+	if (bricks.size() == 0) {
+		std::cout << "!_~. YOU WIN .~_!";
+	}
 	Console::Lock(false);
 }
 
@@ -135,7 +137,12 @@ void Game::CheckCollision()
 	}
 
 	// TODO #6 - If no bricks remain, pause ball and display victory text with R to reset
-
+	if (bricks.size() == 0) {
+		ball.moving = false;
+		Render();
+		if (GetAsyncKeyState('R') & 0x1)
+			Reset();
+	}
 
 	if (paddle.Contains(ball.x_position + ball.x_velocity, ball.y_velocity + ball.y_position))
 	{
