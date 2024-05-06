@@ -147,6 +147,7 @@ void Game::CheckCollision()
 	if (bricks.size() == 0) {
 		ball.moving = false;
 		Render();
+		bricks.clear();
 		if (GetAsyncKeyState('R') & 0x1)
 			Reset();
 	}
@@ -160,6 +161,7 @@ void Game::CheckCollision()
 	if (ball.y_position == Console::WindowHeight()) {
 		ball.moving = false;
 		Render();
+		bricks.clear();
 		if (GetAsyncKeyState('R') & 0x1)
 			Reset();
 	}
